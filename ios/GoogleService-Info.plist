@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>408050114631-guk5lfdnp007t67pje3aeg9k8eci7ofl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.408050114631-guk5lfdnp007t67pje3aeg9k8eci7ofl</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBwr5LQECtVHWawx44Rk6zAFq-jcPN-fzE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>408050114631</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.laneChoiceMvp</string>
+	<key>PROJECT_ID</key>
+	<string>lane-choice-mvp-backend</string>
+	<key>STORAGE_BUCKET</key>
+	<string>lane-choice-mvp-backend.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:408050114631:ios:5ab7c792ed17a408a09162</string>
+</dict>
+</plist>

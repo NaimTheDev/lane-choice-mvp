@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "408050114631",
+    "project_id": "lane-choice-mvp-backend",
+    "storage_bucket": "lane-choice-mvp-backend.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408050114631:android:2fdc8fd984883542a09162",
+        "android_client_info": {
+          "package_name": "com.example.lane_choice_mvp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408050114631-q8fkv4o0r340lpfdub32j70ilp91h3di.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnNu-_IyaPMsq_NHXR8SKdOk_Q0loFVXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408050114631-q8fkv4o0r340lpfdub32j70ilp91h3di.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
