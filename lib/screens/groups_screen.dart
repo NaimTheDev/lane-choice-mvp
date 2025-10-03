@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import '../widgets/adaptive_image.dart';
 import '../models/group.dart';
 import '../services/mock_data_service.dart';
 import '../theme/torque_theme_extension.dart';
@@ -79,7 +79,7 @@ class GroupsScreen extends ConsumerWidget {
                                 topLeft: Radius.circular(16),
                                 topRight: Radius.circular(16),
                               ),
-                              child: CachedNetworkImage(
+                              child: AdaptiveImage(
                                 imageUrl: group.bannerUrl,
                                 width: double.infinity,
                                 fit: BoxFit.cover,

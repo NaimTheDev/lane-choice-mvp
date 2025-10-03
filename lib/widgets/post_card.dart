@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../models/post.dart';
 import '../theme/torque_theme_extension.dart';
+import '../widgets/adaptive_image.dart';
 
 class PostCard extends StatefulWidget {
   final Post post;
@@ -83,7 +83,7 @@ class _PostCardState extends State<PostCard> {
                   radius: 20,
                   backgroundColor: torqueTheme.racingGreen,
                   backgroundImage: widget.post.author.imageUrl != null
-                      ? CachedNetworkImageProvider(widget.post.author.imageUrl!)
+                      ? AdaptiveImageProvider(widget.post.author.imageUrl!)
                       : null,
                   child: widget.post.author.imageUrl == null
                       ? Text(
@@ -159,7 +159,7 @@ class _PostCardState extends State<PostCard> {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16),
-                child: CachedNetworkImage(
+                child: AdaptiveImage(
                   imageUrl: widget.post.imageUrl!,
                   width: double.infinity,
                   height: 200,
@@ -326,9 +326,7 @@ class _PostCardState extends State<PostCard> {
                           radius: 16,
                           backgroundColor: torqueTheme.racingGreen,
                           backgroundImage: comment.author.imageUrl != null
-                              ? CachedNetworkImageProvider(
-                                  comment.author.imageUrl!,
-                                )
+                              ? AdaptiveImageProvider(comment.author.imageUrl!)
                               : null,
                           child: comment.author.imageUrl == null
                               ? Text(

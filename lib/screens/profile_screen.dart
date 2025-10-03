@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import '../widgets/adaptive_image.dart';
 import '../models/app_user.dart';
 import '../models/post.dart';
 import '../services/mock_data_service.dart';
@@ -66,7 +66,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                     foregroundColor: torqueTheme.racingGreen,
                     flexibleSpace: FlexibleSpaceBar(
                       background: user.coverUrl != null
-                          ? CachedNetworkImage(
+                          ? AdaptiveImage(
                               imageUrl: user.coverUrl!,
                               fit: BoxFit.cover,
                               placeholder: (context, url) =>
@@ -174,7 +174,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                                       backgroundColor: torqueTheme.racingGreen,
                                       child: user.imageUrl != null
                                           ? ClipOval(
-                                              child: CachedNetworkImage(
+                                              child: AdaptiveImage(
                                                 imageUrl: user.imageUrl!,
                                                 width: 92,
                                                 height: 92,
@@ -518,7 +518,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                                     itemBuilder: (context, index) {
                                       return ClipRRect(
                                         borderRadius: BorderRadius.circular(8),
-                                        child: CachedNetworkImage(
+                                        child: AdaptiveImage(
                                           imageUrl: user.garagePhotos[index],
                                           fit: BoxFit.cover,
                                           placeholder: (context, url) =>

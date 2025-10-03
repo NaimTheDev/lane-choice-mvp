@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import '../widgets/adaptive_image.dart';
 import '../models/app_user.dart';
 import '../services/mock_data_service.dart';
 import '../theme/torque_theme_extension.dart';
@@ -127,7 +127,7 @@ class _SpeedDatingScreenState extends ConsumerState<SpeedDatingScreen>
                 CircleAvatar(
                   radius: 40,
                   backgroundImage: user.imageUrl != null
-                      ? CachedNetworkImageProvider(user.imageUrl!)
+                      ? AdaptiveImageProvider(user.imageUrl!)
                       : null,
                   child: user.imageUrl == null
                       ? Text(
@@ -343,9 +343,7 @@ class _SpeedDatingScreenState extends ConsumerState<SpeedDatingScreen>
                                                   .isNotEmpty
                                               ? currentUser.raceCardImageUrls
                                                     .map(
-                                                      (
-                                                        url,
-                                                      ) => CachedNetworkImage(
+                                                      (url) => AdaptiveImage(
                                                         imageUrl: url,
                                                         width: double.infinity,
                                                         fit: BoxFit.cover,

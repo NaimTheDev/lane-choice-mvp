@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import '../widgets/adaptive_image.dart';
 import '../models/car_of_the_week.dart';
 import '../services/mock_data_service.dart';
 import '../theme/torque_theme_extension.dart';
@@ -129,7 +129,7 @@ class VoteScreen extends ConsumerWidget {
                               ),
                               child: Stack(
                                 children: [
-                                  CachedNetworkImage(
+                                  AdaptiveImage(
                                     imageUrl: entry.imageUrl,
                                     width: double.infinity,
                                     height: double.infinity,
@@ -222,7 +222,7 @@ class VoteScreen extends ConsumerWidget {
                                             torqueTheme.racingGreen,
                                         backgroundImage:
                                             entry.user.imageUrl != null
-                                            ? CachedNetworkImageProvider(
+                                            ? AdaptiveImageProvider(
                                                 entry.user.imageUrl!,
                                               )
                                             : null,
