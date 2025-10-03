@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_providers.dart';
 import '../screens/auth/login_screen.dart';
-import '../screens/home_screen.dart';
+import '../widgets/main_layout.dart';
 import '../theme/torque_theme_extension.dart';
 
 class AuthWrapper extends ConsumerWidget {
@@ -15,8 +15,8 @@ class AuthWrapper extends ConsumerWidget {
     return authState.when(
       data: (user) {
         if (user != null) {
-          // User is signed in, show home screen
-          return const HomeScreen();
+          // User is signed in, show main layout with bottom navigation
+          return const MainLayout();
         } else {
           // User is not signed in, show login screen
           return const LoginScreen();
