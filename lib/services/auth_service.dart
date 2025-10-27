@@ -133,32 +133,48 @@ class AuthService {
 
   Future<void> _createUserDocument(AppUser user) async {
     final docRef = _firestore.collection('users').doc(user.uid);
-    await docRef.set(
-      {
-        'uid': user.uid,
-        'email': user.email,
-        'name': user.name,
-        'handle': user.handle,
-        'imageUrl': user.imageUrl,
-        'coverUrl': user.coverUrl,
-        'bio': user.bio,
-        'location': user.location,
-        'instagramUrl': user.instagramUrl,
-        'isPrivate': user.isPrivate,
-        'isVerified': user.isVerified,
-        'themeColor': user.themeColor,
-        'subscriptionTier': user.subscriptionTier.name,
-        'raceTypes': user.raceTypes.map((type) => type.name).toList(),
-        'raceCardImageUrls': user.raceCardImageUrls,
-        'raceCarName': user.raceCarName,
-        'raceCardDescription': user.raceCardDescription,
-        'followerCount': user.followerCount,
-        'followingCount': user.followingCount,
-        'garagePhotos': user.garagePhotos,
-        'createdAt': FieldValue.serverTimestamp(),
-        'lastLoginAt': FieldValue.serverTimestamp(),
-      },
-      SetOptions(merge: true),
+    final data = <String, dynamic>{
+      'uid': user.uid,
+      'email': user.email,
+      'isPrivate': user.isPrivate,
+      'isVerified': user.isVerified,
+      'subscriptionTier': user.subscriptionTier.name,
+      'followerCount': user.followerCount,
+      'followingCount': user.followingCount,
+      'createdAt': FieldValue.serverTimestamp(),
+      'lastLoginAt': FieldValue.serverTimestamp(),
+    };
+
+    void addIfPresent(String key, Object? value) {
+      if (value != null) {
+        data[key] = value;
+      }
+    }
+
+    void addIterableIfNotEmpty<T>(String key, Iterable<T>? values) {
+      if (values != null && values.isNotEmpty) {
+        data[key] = values.toList();
+      }
+    }
+
+    addIfPresent('name', user.name);
+    addIfPresent('handle', user.handle);
+    addIfPresent('imageUrl', user.imageUrl);
+    addIfPresent('coverUrl', user.coverUrl);
+    addIfPresent('bio', user.bio);
+    addIfPresent('location', user.location);
+    addIfPresent('instagramUrl', user.instagramUrl);
+    addIfPresent('themeColor', user.themeColor);
+    addIfPresent('raceCarName', user.raceCarName);
+    addIfPresent('raceCardDescription', user.raceCardDescription);
+
+    addIterableIfNotEmpty(
+      'raceTypes',
+      user.raceTypes.map((type) => type.name),
     );
+    addIterableIfNotEmpty('raceCardImageUrls', user.raceCardImageUrls);
+    addIterableIfNotEmpty('garagePhotos', user.garagePhotos);
+
+    await docRef.set(data, SetOptions(merge: true));
   }
 }
