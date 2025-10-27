@@ -8,10 +8,21 @@ import '../theme/torque_theme_extension.dart';
 import '../providers/auth_providers.dart';
 import '../widgets/post_card.dart';
 
+/// Provider that fetches the current authenticated user's profile from Firestore.
+///
+/// This replaces the mock data implementation and uses the real user's UID
+/// from Firebase Auth to fetch their profile from the `users` collection.
 final currentUserProvider = FutureProvider<AppUser?>((ref) async {
-  // In a real app, this would fetch the current user's profile
-  final users = await MockDataService().getUsers();
-  return users.isNotEmpty ? users.first : null;
+  // Get the current Firebase user
+  final firebaseUser = ref.watch(firebaseUserStreamProvider).value;
+
+  if (firebaseUser == null) {
+    return null;
+  }
+
+  // Fetch the user profile from Firestore
+  final userService = ref.read(userServiceProvider);
+  return await userService.getUserById(firebaseUser.uid);
 });
 
 final userPostsProvider = FutureProvider<List<Post>>((ref) async {

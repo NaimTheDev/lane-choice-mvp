@@ -145,13 +145,31 @@ class AuthService {
       return 'Driver';
     }();
 
-    await docRef.set(
-      {
-        'uid': user.uid,
-        'email': user.email,
-        'name': displayName,
-      },
-      SetOptions(merge: true),
-    );
+    final now = DateTime.now();
+
+    await docRef.set({
+      'uid': user.uid,
+      'email': user.email,
+      'name': displayName,
+      'handle': null,
+      'imageUrl': null,
+      'coverUrl': null,
+      'bio': null,
+      'location': null,
+      'instagramUrl': null,
+      'isPrivate': false,
+      'isVerified': false,
+      'themeColor': null,
+      'subscriptionTier': 'free',
+      'raceTypes': [],
+      'raceCardImageUrls': [],
+      'raceCarName': null,
+      'raceCardDescription': null,
+      'followerCount': 0,
+      'followingCount': 0,
+      'garagePhotos': [],
+      'createdAt': now.millisecondsSinceEpoch,
+      'lastLoginAt': now.millisecondsSinceEpoch,
+    }, SetOptions(merge: true));
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/auth_service.dart';
+import '../services/user_service.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) => AuthService());
+
+final userServiceProvider = Provider<UserService>((ref) => UserService());
 
 final firebaseUserStreamProvider = StreamProvider((ref) {
   final authService = ref.watch(authServiceProvider);
