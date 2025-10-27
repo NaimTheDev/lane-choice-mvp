@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../models/app_user.dart';
@@ -6,6 +7,7 @@ import 'auth_exceptions.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   /// Stream of Firebase [User] objects for auth state changes.
   Stream<User?> get firebaseUserStream => _auth.authStateChanges();
@@ -36,7 +38,11 @@ class AuthService {
         password: password,
       );
       final isNew = result.additionalUserInfo?.isNewUser ?? true;
-      return (_userFromFirebase(result.user), isNew);
+      final user = _userFromFirebase(result.user);
+      if (isNew && user != null) {
+        await _createUserDocument(user);
+      }
+      return (user, isNew);
     } catch (error) {
       throw AuthExceptionHandler.handleFirebaseAuthException(error);
     }
@@ -57,7 +63,11 @@ class AuthService {
       );
       final result = await _auth.signInWithCredential(credential);
       final isNew = result.additionalUserInfo?.isNewUser ?? false;
-      return (_userFromFirebase(result.user), isNew);
+      final user = _userFromFirebase(result.user);
+      if (isNew && user != null) {
+        await _createUserDocument(user);
+      }
+      return (user, isNew);
     } catch (error) {
       throw AuthExceptionHandler.handleFirebaseAuthException(error);
     }
@@ -78,7 +88,11 @@ class AuthService {
       );
       final result = await _auth.signInWithCredential(credential);
       final isNew = result.additionalUserInfo?.isNewUser ?? false;
-      return (_userFromFirebase(result.user), isNew);
+      final user = _userFromFirebase(result.user);
+      if (isNew && user != null) {
+        await _createUserDocument(user);
+      }
+      return (user, isNew);
     } catch (error) {
       throw AuthExceptionHandler.handleFirebaseAuthException(error);
     }
@@ -114,6 +128,30 @@ class AuthService {
       email: user.email ?? '',
       name: user.displayName,
       imageUrl: user.photoURL,
+    );
+  }
+
+  Future<void> _createUserDocument(AppUser user) async {
+    final docRef = _firestore.collection('users').doc(user.uid);
+    final displayName = () {
+      final name = user.name?.trim();
+      if (name != null && name.isNotEmpty) {
+        return name;
+      }
+      final email = user.email.trim();
+      if (email.isNotEmpty) {
+        return email;
+      }
+      return 'Driver';
+    }();
+
+    await docRef.set(
+      {
+        'uid': user.uid,
+        'email': user.email,
+        'name': displayName,
+      },
+      SetOptions(merge: true),
     );
   }
 }
