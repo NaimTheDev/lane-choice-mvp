@@ -133,48 +133,25 @@ class AuthService {
 
   Future<void> _createUserDocument(AppUser user) async {
     final docRef = _firestore.collection('users').doc(user.uid);
-    final data = <String, dynamic>{
-      'uid': user.uid,
-      'email': user.email,
-      'isPrivate': user.isPrivate,
-      'isVerified': user.isVerified,
-      'subscriptionTier': user.subscriptionTier.name,
-      'followerCount': user.followerCount,
-      'followingCount': user.followingCount,
-      'createdAt': FieldValue.serverTimestamp(),
-      'lastLoginAt': FieldValue.serverTimestamp(),
-    };
-
-    void addIfPresent(String key, Object? value) {
-      if (value != null) {
-        data[key] = value;
+    final displayName = () {
+      final name = user.name?.trim();
+      if (name != null && name.isNotEmpty) {
+        return name;
       }
-    }
-
-    void addIterableIfNotEmpty<T>(String key, Iterable<T>? values) {
-      if (values != null && values.isNotEmpty) {
-        data[key] = values.toList();
+      final email = user.email.trim();
+      if (email.isNotEmpty) {
+        return email;
       }
-    }
+      return 'Driver';
+    }();
 
-    addIfPresent('name', user.name);
-    addIfPresent('handle', user.handle);
-    addIfPresent('imageUrl', user.imageUrl);
-    addIfPresent('coverUrl', user.coverUrl);
-    addIfPresent('bio', user.bio);
-    addIfPresent('location', user.location);
-    addIfPresent('instagramUrl', user.instagramUrl);
-    addIfPresent('themeColor', user.themeColor);
-    addIfPresent('raceCarName', user.raceCarName);
-    addIfPresent('raceCardDescription', user.raceCardDescription);
-
-    addIterableIfNotEmpty(
-      'raceTypes',
-      user.raceTypes.map((type) => type.name),
+    await docRef.set(
+      {
+        'uid': user.uid,
+        'email': user.email,
+        'name': displayName,
+      },
+      SetOptions(merge: true),
     );
-    addIterableIfNotEmpty('raceCardImageUrls', user.raceCardImageUrls);
-    addIterableIfNotEmpty('garagePhotos', user.garagePhotos);
-
-    await docRef.set(data, SetOptions(merge: true));
   }
 }
